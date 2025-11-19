@@ -11,28 +11,7 @@
         <script type="module" src="/scripts/globals.js" defer></script>
     </head>
     <body>
-        <header class="header">
-            <div class="inner">
-                <div>
-                    <a class="logo" href="/">
-                        <img src="/assets/mascot/icon.svg" alt="Pixo" />
-                        <span>JSP</span>
-                    </a>
-                    <form action="/search.html" class="search">
-                        <input type="search" name="q" placeholder="Search for parts" id="search" />
-                        <button type="submit">
-                            <i data-lucide="search"></i>
-                        </button>
-                    </form>
-                </div>
-                <div>
-                    <a href="/about.html">About Us</a>
-                    <a href="/cart" class="cart">
-                        <i data-lucide="shopping-cart"></i>
-                    </a>
-                </div>
-            </div>
-        </header>
+        <template data-template="header"></template>
         <i data-lucide="menu"></i>
         <h1>Visualize</h1>
     </body>
