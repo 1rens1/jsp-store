@@ -1,13 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 @import url('https://necolas.github.io/normalize.css/latest/normalize.css');
-
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+@import 'header.css';
 
 :root {
     --text-50: oklch(97.31% 0.033 150.86);
@@ -72,10 +65,68 @@
 
     --font-sans: 'Sansation';
     --font-display: 'Audiowide';
+
+    --border: rgba(255, 255, 255, 0.2);
+    --border-active: rgba(255,255,255,0.4);
+
+    --breakpoint-sm: 800px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+*:focus-visible {
+    outline: 2px solid var(--accent-300);
+    outline-offset: 2px;
 }
 
 body {
     background-color: var(--background-900);
     color: var(--text-50);
     font-family: var(--font-sans);
+}
+
+a {
+    color: currentColor;
+    text-decoration: none;
+}
+
+/* Clears the 'X' from Internet Explorer */
+input[type='search']::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+}
+/* Also removes the magnifying glass icon in IE */
+input[type='search']::-ms-reveal {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+/* Clears the 'X' from Chrome, Safari, and other WebKit/Blink browsers */
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
+    display: none;
+}
+
+input,
+button {
+    font: inherit;
+    background: none;
+    border: none;
+    color: inherit;
+    min-width: none;
+    min-height: none;
+}
+
+button, a {
+    cursor: pointer;
 }
