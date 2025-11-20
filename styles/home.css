@@ -1,0 +1,8 @@
+main {
+    h2 {
+        font-size: 18px;
+    }
+    > section:not(:last-child) {
+        margin-bottom: 16px;
+    }
+}

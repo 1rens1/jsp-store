@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 @import url('https://necolas.github.io/normalize.css/latest/normalize.css');
 @import 'header.css';
+@import 'footer.css';
 
 :root {
     --text-50: oklch(97.31% 0.033 150.86);
@@ -67,9 +68,13 @@
     --font-display: 'Audiowide';
 
     --border: rgba(255, 255, 255, 0.2);
-    --border-active: rgba(255,255,255,0.4);
+    --border-active: rgba(255, 255, 255, 0.4);
 
     --breakpoint-sm: 800px;
+}
+
+html {
+    color-scheme: dark;
 }
 
 *,
@@ -86,9 +91,21 @@
 }
 
 body {
+    display: flex;
+    flex-direction: column;
     background-color: var(--background-900);
     color: var(--text-50);
     font-family: var(--font-sans);
+    font-size: 16px;
+    min-height: 100svh;
+}
+
+main {
+    flex-grow: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: auto;
+    padding: 16px;
 }
 
 a {
@@ -98,6 +115,10 @@ a {
     &:hover {
         opacity: 0.5;
     }
+}
+
+ul,ol {
+    list-style: none;
 }
 
 /* Clears the 'X' from Internet Explorer */
@@ -131,6 +152,28 @@ button {
     min-height: none;
 }
 
-button, a {
+button,
+a {
     cursor: pointer;
+}
+
+.logo {
+    --_size: var(--size, 44px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 4px;
+    border-radius: 4px;
+
+    font-family: var(--font-display);
+    font-size: calc(var(--_size) * 0.75);
+    span {
+        transform: skewX(-10deg);
+    }
+
+    img {
+        width: var(--_size);
+        height: var(--_size);
+    }
 }
