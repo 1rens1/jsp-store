@@ -1,4 +1,8 @@
-/** @type {Record<string, (elm: HTMLElement) => HTMLElement>} */
+'use strict';
+import { formatRupiah, pickRandomElmsNoDupe } from './globals.js';
+import { products } from './products.js';
+
+/** @type {Record<string, (elm: HTMLElement | null, data?: Record<string, any>) => HTMLElement>} */
 const templates = {
     header: () => {
         const headerElm = document.createElement('header');
@@ -90,6 +94,84 @@ const templates = {
                 <div class="copyright">&copy; <span class="brand">JSP Store</span> 2025</div>
             </div>`;
         return footerElm;
+    },
+    'product-categories': () => {
+        const categoryImage = {
+            CPU: '/assets/products/AMD Ryzen 9 9950X 16 Cores.webp',
+            'CPU Cooler': '/assets/products/Noctua NH-D15 G2.webp',
+            Case: '/assets/products/Lian Li O11 Dynamic EVO.webp',
+            GPU: '/assets/products/NVIDIA GeForce RTX 5090 24GB.webp',
+            HDD: '/assets/products/WD Blue 4TB 5400RPM.webp',
+            Headphones: '/assets/products/Audeze Penrose.webp',
+            Keyboard: '/assets/products/Corsair K100 RGB.webp',
+            Monitor: '/assets/products/ASUS ROG Swift PG32UQX 32 inch 4K.webp',
+            Motherboard: '/assets/products/ASUS ROG Crosshair X870E Extreme.webp',
+            Mouse: '/assets/products/Razer Viper V2 Pro.webp',
+            'Power Supply Unit': '/assets/products/Seasonic Prime TX-1000 Titanium.webp',
+            RAM: '/assets/products/G.Skill Trident Z5 RGB 64GB DDR5 7200MHz.webp',
+            SSD: '/assets/products/Samsung 990 Pro 4TB NVMe.webp',
+        };
+
+        /** @type {(category: string) => string} */
+        const categoryCard = (category) => `
+            <li>
+                <a href="/search.html?category=${encodeURIComponent(category)}">
+                    <div class="product-image"><img  src="${
+                        categoryImage[category]
+                    }" alt="${category}"></div>
+                    <div>${category}</div>
+                </a>
+            </li>
+        `;
+        const productCategoriesElm = document.createElement('ul');
+        productCategoriesElm.innerHTML = Object.keys(categoryImage)
+            .map((category) => categoryCard(category))
+            .join('');
+        return productCategoriesElm;
+    },
+    'product-card': (elm, data) => {
+        const { productName } = data;
+        const product = products.find((p) => p.name === productName);
+        if (!product) return;
+        const cardElm = document.createElement('a');
+        cardElm.href = `/product.html?name=${product.name}`;
+        cardElm.innerHTML = `
+            <div class="product-image">
+                <img src="/assets/products/${product.name}.webp" alt="${product.name}" />
+            </div>
+            <div class="name">${product.name}</div>
+            <div class="price">${formatRupiah(product.price)}</div>
+        `;
+        return cardElm;
+    },
+    'home-recommended': () => {
+        const recommendedElm = document.createElement('div');
+
+        pickRandomElmsNoDupe(products, 10).forEach((p) => {
+            const card = templates['product-card'](null, { productName: p.name });
+            card.classList.add('product-card'); // ensure class is applied
+            recommendedElm.appendChild(card);
+        });
+
+        return recommendedElm;
+    },
+    'home-review': (elm) => {
+        const reviewCardElm = document.createElement('div');
+        reviewCardElm.innerHTML = `
+            <img src="${elm.dataset.imgsrc}" alt="${elm.dataset.name}">
+            <div class="name">${elm.dataset.name}</div>
+            <div class="stars">
+                <i data-lucide="star" fill="currentColor"></i>
+                <i data-lucide="star" fill="currentColor"></i>
+                <i data-lucide="star" fill="currentColor"></i>
+                <i data-lucide="star" fill="currentColor"></i>
+                <i data-lucide="star" fill="currentColor"></i>
+            </div>
+            <div class="message">
+                ${elm.dataset.message}
+            </div>
+        `;
+        return reviewCardElm;
     },
 };
 
